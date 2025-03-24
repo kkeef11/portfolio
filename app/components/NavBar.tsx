@@ -100,7 +100,6 @@ const NavBar = () => {
             download
             target="_blank"
             rel="noopener noreferrer"
-            variant="contained"
           >
             <DescriptionIcon sx={{ color: "white" }} />
           </IconButton>
