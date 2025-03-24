@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { DataGrid, GridColDef, useGridApiRef } from "@mui/x-data-grid";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Alert } from "@mui/material";
 import { useCrypto } from "../../queries/crypto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,8 +19,6 @@ const RenderCSR = () => {
   const renderStartTime = useRef(performance.now());
   const { data: cryptoData, isLoading: cryptoLoading } = useCrypto();
   const apiRef = useGridApiRef();
-
-  console.log("cryptoData", cryptoData);
 
   useEffect(() => {
     if (cryptoData) {
@@ -140,6 +138,7 @@ const RenderCSR = () => {
           </Button>
         </Box>
       </Box>
+
       {!cryptoLoading ? (
         <Box
           display="flex"
@@ -164,6 +163,20 @@ const RenderCSR = () => {
                 </Button>
               </Link>
             </Box>
+            {renderCount > 1 && (
+              <Alert
+                severity="info"
+                sx={{
+                  backgroundColor: "#e3f2fd",
+                  fontSize: "0.75rem",
+                  paddingY: "0.1rem",
+                  paddingX: "0.5rem",
+                }}
+              >
+                This render was faster because React Query cached the previous
+                response!
+              </Alert>
+            )}
             <ExternalToolbarControls apiRef={apiRef} />
           </Box>
           <DataGrid
