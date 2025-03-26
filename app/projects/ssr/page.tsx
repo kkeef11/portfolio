@@ -1,5 +1,5 @@
 import { GridColDef } from "@mui/x-data-grid";
-import { Box, Typography } from "@mui/material";
+import { Box, Grid2, Typography } from "@mui/material";
 import { fetchCryptoDataSSR } from "@/app/api/ssr/crypto";
 import ClientDataGrid from "./DataGrid";
 
@@ -71,17 +71,18 @@ export default async function CryptoTableSSR() {
   ];
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
+    <Grid2
+      container
+      direction="column"
       justifyContent="center"
       alignItems="center"
       height="100%"
+      padding="1rem"
     >
-      <Box
+      <Grid2
+        size={{ xs: 12, md: 8, lg: 6 }}
         display="flex"
         flexDirection="column"
-        justifyContent="center"
         alignItems="center"
         paddingBottom="1rem"
       >
@@ -99,15 +100,15 @@ export default async function CryptoTableSSR() {
             Render count (total): {renderCount}
           </Typography>
         </Box>
-      </Box>
-      <Box
+      </Grid2>
+      <Grid2
+        size={{ xs: 12, md: 10, lg: 8.5 }}
+        overflow="scroll"
         display="flex"
-        justifyContent="space-between"
-        height="35rem"
-        width="fit-content"
+        justifyContent="center"
       >
         <ClientDataGrid rows={data} columns={columns} />
-      </Box>
-    </Box>
+      </Grid2>
+    </Grid2>
   );
 }

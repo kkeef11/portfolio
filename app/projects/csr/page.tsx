@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { DataGrid, GridColDef, useGridApiRef } from "@mui/x-data-grid";
-import { Box, Button, Typography, Alert } from "@mui/material";
+import { Box, Button, Typography, Alert, Grid2 } from "@mui/material";
 import { useCrypto } from "../../queries/crypto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -93,14 +93,16 @@ const RenderCSR = () => {
   ];
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
+    <Grid2
+      container
+      direction="column"
       justifyContent="center"
       alignItems="center"
       height="100%"
+      padding="1rem"
     >
-      <Box
+      <Grid2
+        size={{ xs: 12, md: 8, lg: 6 }}
         display="flex"
         flexDirection="column"
         justifyContent="center"
@@ -137,64 +139,79 @@ const RenderCSR = () => {
             Reset
           </Button>
         </Box>
-      </Box>
+      </Grid2>
 
       {!cryptoLoading ? (
-        <Box
-          display="flex"
-          flexDirection="column"
-          height="35rem"
-          width="fit-content"
-        >
-          <Box display="flex" justifyContent="space-between">
-            <Box>
-              <Link href="/projects/ssr" passHref>
-                <Button
-                  variant="contained"
-                  startIcon={<FontAwesomeIcon icon={faWindowRestore} />}
+        <>
+          <Grid2
+            size={{ xs: 12, md: 8, lg: 6 }}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+          >
+            <Box display="flex" width="100%" justifyContent="center">
+              {renderCount > 1 && (
+                <Alert
+                  severity="info"
                   sx={{
-                    backgroundColor: "transparent",
-                    color: "white",
-                    border: "none",
-                    boxShadow: "none",
+                    width: "fit-content",
+                    backgroundColor: "#e3f2fd",
+                    fontSize: "0.75rem",
+                    paddingY: "0.1rem",
+                    paddingX: "0.5rem",
                   }}
                 >
-                  View SSR Page
-                </Button>
-              </Link>
+                  This render was faster because React Query cached the previous
+                  response!
+                </Alert>
+              )}
             </Box>
-            {renderCount > 1 && (
-              <Alert
-                severity="info"
-                sx={{
-                  backgroundColor: "#e3f2fd",
-                  fontSize: "0.75rem",
-                  paddingY: "0.1rem",
-                  paddingX: "0.5rem",
-                }}
-              >
-                This render was faster because React Query cached the previous
-                response!
-              </Alert>
-            )}
-            <ExternalToolbarControls apiRef={apiRef} />
-          </Box>
-          <DataGrid
-            rows={cryptoData?.data}
-            columns={columns}
-            pageSizeOptions={[10, 20, 50]}
-            sx={{
-              backgroundColor: "lightgray", // Change this to your preferred color
-              "& .MuiDataGrid-cell": {
-                backgroundColor: "white", // Changes the background of individual cells
-              },
-              "& .MuiDataGrid-columnHeaders": {
-                backgroundColor: "#1976d2", // Changes the background of column headers
-                color: "black", // Changes text color of headers
-              },
-            }}
-          />
-        </Box>
+          </Grid2>
+          <Grid2
+            size={{ xs: 12, md: 10, lg: 8.5 }}
+            sx={{ overflowX: "scroll" }}
+            display="flex"
+            justifyContent="center"
+          >
+            <Box display="flex" flexDirection="column" width="100%">
+              <Box display="flex" width="100%" justifyContent="space-between">
+                <Link href="/projects/ssr" passHref>
+                  <Button
+                    variant="contained"
+                    startIcon={<FontAwesomeIcon icon={faWindowRestore} />}
+                    sx={{
+                      backgroundColor: "transparent",
+                      color: "white",
+                      border: "none",
+                      boxShadow: "none",
+                    }}
+                  >
+                    View SSR Page
+                  </Button>
+                </Link>
+                <ExternalToolbarControls apiRef={apiRef} />
+              </Box>
+              <Box>
+                <DataGrid
+                  rows={cryptoData?.data}
+                  columns={columns}
+                  pageSizeOptions={[10, 20, 50]}
+                  sx={{
+                    backgroundColor: "lightgray",
+                    "& .MuiDataGrid-cell": {
+                      backgroundColor: "white",
+                    },
+                    "& .MuiDataGrid-columnHeaders": {
+                      backgroundColor: "#1976d2",
+                      color: "black",
+                    },
+                    height: "35rem",
+                  }}
+                />
+              </Box>
+            </Box>
+          </Grid2>
+        </>
       ) : (
         <FontAwesomeIcon
           className="inlineLoading"
@@ -204,7 +221,7 @@ const RenderCSR = () => {
           color="white"
         />
       )}
-    </Box>
+    </Grid2>
   );
 };
 
