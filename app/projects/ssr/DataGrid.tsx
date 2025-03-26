@@ -19,25 +19,23 @@ export default function ClientDataGrid({
   return (
     <Box display="flex" flexDirection="column" width="100%">
       <Box display="flex" width="100%" justifyContent="space-between">
-        <Box display="flex">
-          <Link href="/projects/csr" passHref>
-            <Button
-              variant="contained"
-              startIcon={<FontAwesomeIcon icon={faWindowRestore} />}
-              sx={{
-                backgroundColor: "transparent",
-                color: "white",
-                border: "none",
-                boxShadow: "none",
-              }}
-            >
-              View CSR Page
-            </Button>
-          </Link>
-        </Box>
+        <Link href="/projects/csr" passHref>
+          <Button
+            variant="contained"
+            startIcon={<FontAwesomeIcon icon={faWindowRestore} />}
+            sx={{
+              backgroundColor: "transparent",
+              color: "white",
+              border: "none",
+              boxShadow: "none",
+            }}
+          >
+            View CSR Page
+          </Button>
+        </Link>
         <ExternalToolbarControls apiRef={apiRef} />
       </Box>
-      <Box width="100%" height="32rem">
+      <Box>
         <DataGrid
           apiRef={apiRef}
           rows={rows}
@@ -50,6 +48,7 @@ export default function ClientDataGrid({
               backgroundColor: "#1976d2",
               color: "black",
             },
+            height: "35rem",
           }}
         />
       </Box>

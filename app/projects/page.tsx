@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Grid2, Typography } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -29,24 +29,28 @@ export default function ProjectPage() {
   ];
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
+    <Grid2
+      container
+      direction="column"
       justifyContent="center"
       alignItems="center"
-      height="80%"
+      sx={{ height: "80%", width: "100%" }}
     >
-      <Box>
+      <Grid2
+        size={{ xs: 12, md: 8, lg: 6 }}
+        display="flex"
+        justifyContent="center"
+      >
         <Typography variant="h3" color="white" fontFamily="Open Sans">
           Mini Projects
         </Typography>
-      </Box>
+      </Grid2>
 
-      <Box
+      <Grid2
         display="flex"
         justifyContent="center"
-        width="50%"
-        paddingTop="3rem"
+        sx={{ paddingLeft: "1rem", paddingRight: "1rem", paddingTop: "2rem" }}
+        size={{ xs: 12, md: 8, lg: 6 }}
         gap={4}
         position="relative"
       >
@@ -67,7 +71,7 @@ export default function ProjectPage() {
                 padding: "1rem",
                 backgroundColor: "rgba(255,255,255,0.1)",
                 borderRadius: "8px",
-                width: "200px",
+                width: "fit-content",
                 textAlign: "center",
                 position: "relative",
                 zIndex: 2,
@@ -95,17 +99,18 @@ export default function ProjectPage() {
                 height: hoveredProject === project.id ? "3rem" : 0,
               }}
               transition={{ duration: 0.3 }}
-              style={{
+              sx={{
                 position: "absolute",
-                top: "100%", // Ensures it appears below the project title
+                top: "100%",
                 left: 0,
+                height: "fit-content",
                 width: "100%",
                 background: "rgba(255,255,255,0.1)",
                 borderRadius: "5px",
-                padding: "10px",
-                textAlign: "center",
-                overflow: "hidden",
-                zIndex: 1, // Keeps it below the project title
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 1,
               }}
             >
               <Typography
@@ -119,7 +124,7 @@ export default function ProjectPage() {
             </MotionBox>
           </Box>
         ))}
-      </Box>
-    </Box>
+      </Grid2>
+    </Grid2>
   );
 }
