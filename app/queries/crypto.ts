@@ -6,9 +6,12 @@ export function useCrypto() {
     queryKey: ["crypto"],
     queryFn: fetchCryptoDataCSR,
     staleTime: 180000,
-    select: (response) => ({
-      data: response.data,
-      timeStamp: response.timestamp,
-    }),
+    select: (response) => {
+      console.log("CSR Data:", response.data);
+      return {
+        data: response.data,
+        timeStamp: response.timestamp,
+      };
+    },
   });
 }

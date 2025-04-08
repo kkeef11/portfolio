@@ -1,9 +1,9 @@
-import { API_ENDPOINTS } from "../../lib/config";
+import { SSR_API_ENDPOINTS } from "../../lib/config";
 import { CryptoAssetResponse } from "@/app/lib/types";
 
 export const fetchCryptoDataSSR = async (): CryptoAssetResponse => {
   const startTime = Date.now();
-  const response = await fetch(API_ENDPOINTS.crypto, {
+  const response = await fetch(SSR_API_ENDPOINTS.crypto, {
     cache: "no-store",
   }).then((res) => res.json());
   if (!response) {
