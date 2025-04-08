@@ -23,6 +23,7 @@ const RenderCSR = () => {
 
   useEffect(() => {
     if (cryptoData) {
+      console.log(cryptoData);
       const endTime = performance.now();
       setTimeTaken(endTime - renderStartTime.current);
     }
@@ -102,7 +103,7 @@ const RenderCSR = () => {
       height="100%"
       padding="1rem"
     >
-      {!cryptoLoading && cryptoData?.data.length && (
+      {!cryptoLoading && cryptoData?.data?.length && (
         <Grid2
           size={{ xs: 12, md: 8, lg: 6 }}
           display="flex"
@@ -145,7 +146,7 @@ const RenderCSR = () => {
       )}
 
       {!cryptoLoading ? (
-        cryptoData?.data.length ? (
+        cryptoData?.data?.length ? (
           <>
             <Grid2
               size={{ xs: 12, md: 8, lg: 6 }}

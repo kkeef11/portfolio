@@ -14,6 +14,8 @@ const getCryptoData = async () => {
 
 export default async function CryptoTableSSR() {
   const { data, timestamp: timeTaken } = await getCryptoData();
+  console.log("SSR Render Count:", renderCount);
+  console.log("SSR Data:", data);
   const columns: GridColDef[] = [
     {
       field: "id",

@@ -7,7 +7,7 @@ import RechartsBarChart from "./recharts/BarChart";
 import { useCrypto } from "@/app/queries/crypto";
 
 const Page = () => {
-  const { data: cryptoData, isLoading: cryptoLoading } = useCrypto();
+  const { data: cryptoData } = useCrypto();
   let firstTen = null;
   if (cryptoData && cryptoData?.data) {
     firstTen = cryptoData.data.slice(0, 10);
