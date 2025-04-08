@@ -22,7 +22,7 @@ export default function ProjectPage() {
     {
       id: 2,
       title: "visx vs victory",
-      path: "/projects",
+      path: "/projects/chartComparison",
       description:
         "Coming soon will be a comparison of visx vs VictoryCharts for displaying data such as crypto prices.",
     },

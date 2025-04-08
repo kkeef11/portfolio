@@ -7,6 +7,7 @@ import { useCrypto } from "../../queries/crypto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleNotch,
+  faPersonDigging,
   faWindowRestore,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
@@ -101,117 +102,144 @@ const RenderCSR = () => {
       height="100%"
       padding="1rem"
     >
-      <Grid2
-        size={{ xs: 12, md: 8, lg: 6 }}
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        paddingBottom="1rem"
-      >
-        <Typography variant="h5" color="white">
-          Crypto Assets - Coin Cap
-        </Typography>
-        <Typography variant="h6" color="white">
-          Client Side Rendered Table
-        </Typography>
-        <Typography variant="subtitle1" color="white">
-          Time to response: {timeTaken?.toFixed()}ms
-        </Typography>
-        <Box display="flex" alignItems="center">
-          <Typography variant="subtitle1" color="white">
-            Render count (total): {renderCount}
+      {!cryptoLoading && cryptoData?.data.length && (
+        <Grid2
+          size={{ xs: 12, md: 8, lg: 6 }}
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          paddingBottom="1rem"
+        >
+          <Typography variant="h5" color="white">
+            Crypto Assets - Coin Cap
           </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "white",
-              color: "black",
-              height: "1.5rem",
-              fontSize: "0.75rem",
-              marginLeft: "0.7rem",
-            }}
-            onClick={() => {
-              localStorage.removeItem("csrRenderCount");
-              window.location.reload();
-            }}
-          >
-            Reset
-          </Button>
-        </Box>
-      </Grid2>
+          <Typography variant="h6" color="white">
+            Client Side Rendered Table
+          </Typography>
+          <Typography variant="subtitle1" color="white">
+            Time to response: {timeTaken?.toFixed()}ms
+          </Typography>
+          <Box display="flex" alignItems="center">
+            <Typography variant="subtitle1" color="white">
+              Render count (total): {renderCount}
+            </Typography>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "white",
+                color: "black",
+                height: "1.5rem",
+                fontSize: "0.75rem",
+                marginLeft: "0.7rem",
+              }}
+              onClick={() => {
+                localStorage.removeItem("csrRenderCount");
+                window.location.reload();
+              }}
+            >
+              Reset
+            </Button>
+          </Box>
+        </Grid2>
+      )}
 
       {!cryptoLoading ? (
-        <>
+        cryptoData?.data.length ? (
+          <>
+            <Grid2
+              size={{ xs: 12, md: 8, lg: 6 }}
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+            >
+              <Box display="flex" width="100%" justifyContent="center">
+                {renderCount > 1 && (
+                  <Alert
+                    severity="info"
+                    sx={{
+                      width: "fit-content",
+                      backgroundColor: "#e3f2fd",
+                      fontSize: "0.75rem",
+                      paddingY: "0.1rem",
+                      paddingX: "0.5rem",
+                    }}
+                  >
+                    This render was faster because React Query cached the
+                    previous response!
+                  </Alert>
+                )}
+              </Box>
+            </Grid2>
+            <Grid2
+              size={{ xs: 12, md: 10, lg: 8.5 }}
+              sx={{ overflowX: "scroll" }}
+              display="flex"
+              justifyContent="center"
+            >
+              <Box display="flex" flexDirection="column" width="100%">
+                <Box display="flex" width="100%" justifyContent="space-between">
+                  <Link href="/projects/ssr" passHref>
+                    <Button
+                      variant="contained"
+                      startIcon={<FontAwesomeIcon icon={faWindowRestore} />}
+                      sx={{
+                        backgroundColor: "transparent",
+                        color: "white",
+                        border: "none",
+                        boxShadow: "none",
+                      }}
+                    >
+                      View SSR Page
+                    </Button>
+                  </Link>
+                  <ExternalToolbarControls apiRef={apiRef} />
+                </Box>
+                <Box>
+                  <DataGrid
+                    rows={cryptoData?.data}
+                    columns={columns}
+                    pageSizeOptions={[10, 20, 50]}
+                    sx={{
+                      backgroundColor: "lightgray",
+                      "& .MuiDataGrid-cell": {
+                        backgroundColor: "white",
+                      },
+                      "& .MuiDataGrid-columnHeaders": {
+                        backgroundColor: "#1976d2",
+                        color: "black",
+                      },
+                      height: "35rem",
+                    }}
+                  />
+                </Box>
+              </Box>
+            </Grid2>
+          </>
+        ) : (
           <Grid2
-            size={{ xs: 12, md: 8, lg: 6 }}
+            size={{ xs: 12, md: 10, lg: 8.5 }}
             display="flex"
             flexDirection="column"
             alignItems="center"
-          >
-            <Box display="flex" width="100%" justifyContent="center">
-              {renderCount > 1 && (
-                <Alert
-                  severity="info"
-                  sx={{
-                    width: "fit-content",
-                    backgroundColor: "#e3f2fd",
-                    fontSize: "0.75rem",
-                    paddingY: "0.1rem",
-                    paddingX: "0.5rem",
-                  }}
-                >
-                  This render was faster because React Query cached the previous
-                  response!
-                </Alert>
-              )}
-            </Box>
-          </Grid2>
-          <Grid2
-            size={{ xs: 12, md: 10, lg: 8.5 }}
-            sx={{ overflowX: "scroll" }}
-            display="flex"
             justifyContent="center"
           >
-            <Box display="flex" flexDirection="column" width="100%">
-              <Box display="flex" width="100%" justifyContent="space-between">
-                <Link href="/projects/ssr" passHref>
-                  <Button
-                    variant="contained"
-                    startIcon={<FontAwesomeIcon icon={faWindowRestore} />}
-                    sx={{
-                      backgroundColor: "transparent",
-                      color: "white",
-                      border: "none",
-                      boxShadow: "none",
-                    }}
-                  >
-                    View SSR Page
-                  </Button>
-                </Link>
-                <ExternalToolbarControls apiRef={apiRef} />
-              </Box>
-              <Box>
-                <DataGrid
-                  rows={cryptoData?.data}
-                  columns={columns}
-                  pageSizeOptions={[10, 20, 50]}
-                  sx={{
-                    backgroundColor: "lightgray",
-                    "& .MuiDataGrid-cell": {
-                      backgroundColor: "white",
-                    },
-                    "& .MuiDataGrid-columnHeaders": {
-                      backgroundColor: "#1976d2",
-                      color: "black",
-                    },
-                    height: "35rem",
-                  }}
-                />
-              </Box>
-            </Box>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              width="100%"
+              paddingBottom="1rem"
+            >
+              <FontAwesomeIcon icon={faPersonDigging} size="6x" color="white" />
+            </Box>{" "}
+            <Typography variant="subtitle1" color="white" textAlign="center">
+              Oh no! Looks like the CoinCap API has been upgraded,
+              <br /> so for now this page is under construction until we get a
+              access key!
+            </Typography>
           </Grid2>
-        </>
+        )
       ) : (
         <FontAwesomeIcon
           className="inlineLoading"
