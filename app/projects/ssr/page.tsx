@@ -2,6 +2,8 @@ import { GridColDef } from "@mui/x-data-grid";
 import { Box, Grid2, Typography } from "@mui/material";
 import { fetchCryptoDataSSR } from "@/app/api/ssr/crypto";
 import ClientDataGrid from "./DataGrid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPersonDigging } from "@fortawesome/free-solid-svg-icons";
 
 let renderCount = 0;
 
@@ -70,7 +72,7 @@ export default async function CryptoTableSSR() {
     },
   ];
 
-  return (
+  return data.length ? (
     <Grid2
       container
       direction="column"
@@ -108,6 +110,30 @@ export default async function CryptoTableSSR() {
         justifyContent="center"
       >
         <ClientDataGrid rows={data} columns={columns} />
+      </Grid2>
+    </Grid2>
+  ) : (
+    <Grid2
+      container
+      justifyContent="center"
+      alignItems="center"
+      height="100%"
+      padding="1rem"
+    >
+      <Grid2
+        size={{ xs: 12, md: 10, lg: 8.5 }}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <Box display="flex" height="5rem" width="100%" paddingBottom="1rem">
+          <FontAwesomeIcon icon={faPersonDigging} size="xl" color="white" />
+        </Box>{" "}
+        <Typography variant="subtitle1" color="white" textAlign="center">
+          Oh no! Looks like the CoinCap API has been upgraded,
+          <br /> so for now this page is under construction until we get a
+          access key!
+        </Typography>
       </Grid2>
     </Grid2>
   );
