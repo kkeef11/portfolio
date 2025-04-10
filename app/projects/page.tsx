@@ -21,10 +21,10 @@ export default function ProjectPage() {
     },
     {
       id: 2,
-      title: "visx vs victory",
+      title: "Visx vs Recharts",
       path: "/",
       description:
-        "Coming soon will be a comparison of visx vs VictoryCharts for displaying data such as crypto prices.",
+        "Coming soon will be a comparison of Visx vs Recharts for displaying data such as crypto prices.",
     },
   ];
 

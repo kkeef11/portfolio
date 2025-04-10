@@ -32,3 +32,11 @@ body {
     background: url("/images/background.webp");
   }
 }
+
+.toast-progress-gray {
+  background-color: gray !important;
+}
+
+.custom-toast-progress {
+  background-color: #4caf50 !important; /* Change to your desired color */
+}

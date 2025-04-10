@@ -8,6 +8,9 @@ import {
 } from "@mui/x-data-grid";
 import { faColumns, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { GridApiCommunity } from "@mui/x-data-grid/internals";
+import { motion } from "framer-motion";
+
+const MotionButton = motion(Button);
 
 interface ExternalToolbarControlsProps {
   apiRef: React.MutableRefObject<GridApiCommunity>;
@@ -31,26 +34,30 @@ export function ExternalToolbarControls({
   };
   return (
     <Box display="flex" justifyContent="space-between">
-      <Button
+      <MotionButton
         startIcon={
           <FontAwesomeIcon icon={faColumns} style={{ fontSize: "0.8rem" }} />
         }
-        style={{ color: "white", fontSize: "0.9rem" }}
+        whileHover={{ scale: 1.1, y: -3 }}
+        transition={{ type: "spring", stiffness: 300 }}
+        sx={{ color: "white", fontSize: "0.9rem", textTransform: "none" }}
         onClick={handleToggleColumn}
         title="Columns"
       >
         Columns
-      </Button>
-      <Button
+      </MotionButton>
+      <MotionButton
         startIcon={
           <FontAwesomeIcon icon={faFilter} style={{ fontSize: "0.8rem" }} />
         }
-        style={{ color: "white", fontSize: "0.9rem" }}
+        whileHover={{ scale: 1.1, y: -3 }}
+        transition={{ type: "spring", stiffness: 300 }}
+        sx={{ color: "white", fontSize: "0.9rem", textTransform: "none" }}
         onClick={handleToggleFilter}
         title="Filters"
       >
         Filters
-      </Button>
+      </MotionButton>
     </Box>
   );
 }

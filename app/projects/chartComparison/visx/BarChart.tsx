@@ -1,7 +1,7 @@
 import { Bar } from "@visx/shape";
 import { Group } from "@visx/group";
 import { GradientTealBlue } from "@visx/gradient";
-import { CryptoAsset } from "@/app/lib/types";
+import { CryptoAsset } from "@/app/api/lib/types";
 import { useMemo } from "react";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { AxisLeft, AxisBottom } from "@visx/axis";
@@ -16,7 +16,7 @@ function VisxBarChart({
   width: number;
 }) {
   const margin = { top: 0, bottom: 100, left: 0, right: 20 };
-  const xMax = width - margin.left - margin.right;
+  // const xMax = width - margin.left - margin.right;
   const yMax = height;
 
   const xScale = useMemo(
@@ -26,7 +26,7 @@ function VisxBarChart({
         domain: data.map((point) => point.name),
         padding: 0.4,
       }),
-    [data, xMax]
+    [data, width]
   );
 
   const yScale = useMemo(
