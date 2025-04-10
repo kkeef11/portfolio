@@ -1,4 +1,4 @@
-import { CryptoAsset } from "@/app/lib/types";
+import { CryptoAsset } from "@/app/api/lib/types";
 import {
   BarChart,
   Bar,

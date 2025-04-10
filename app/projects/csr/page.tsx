@@ -1,25 +1,71 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { DataGrid, GridColDef, useGridApiRef } from "@mui/x-data-grid";
-import { Box, Button, Typography, Alert, Grid2 } from "@mui/material";
+import React, { useRef, useState, useEffect, useMemo, useReducer } from "react";
+import { DataGrid, useGridApiRef } from "@mui/x-data-grid";
+import { columns } from "@/app/lib/dataGridColumns";
+import {
+  Box,
+  Button,
+  Typography,
+  Grid2,
+  InputAdornment,
+  TextField,
+  Zoom,
+} from "@mui/material";
 import { useCrypto } from "../../queries/crypto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleNotch,
   faPersonDigging,
+  faSearch,
   faWindowRestore,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { ExternalToolbarControls } from "@/app/components/DataGridTools";
+import { useRenderStore } from "@/app/store/useRenderStore";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast, ToastContainer } from "react-toastify";
+import { motion } from "framer-motion";
+import { CryptoAsset } from "@/app/api/lib/types";
+
+const MotionButton = motion(Button);
+const MotionBox = motion(Box);
+
+interface InitialState {
+  searchTerm: string;
+  filteredData: CryptoAsset[];
+}
+
+interface Action {
+  type: string;
+  payload: string | CryptoAsset[];
+}
+
+const reducer = (state: InitialState, action: Action): InitialState => {
+  switch (action.type) {
+    case "SET_SEARCH_TERM":
+      return { ...state, searchTerm: action.payload as string };
+    case "SET_FILTERED_DATA":
+      return { ...state, filteredData: action.payload as CryptoAsset[] };
+    default:
+      return state;
+  }
+};
+
+const initialState = {
+  searchTerm: "",
+  filteredData: [],
+};
 
 // to do - make time to response include render of the page time
 const RenderCSR = () => {
-  const [timeTaken, setTimeTaken] = useState<number | null>(null);
-  const [renderCount, setRenderCount] = useState<number>(0);
-  const renderStartTime = useRef(performance.now());
+  const [state, dispatch] = useReducer(reducer, initialState);
   const { data: cryptoData, isLoading: cryptoLoading } = useCrypto();
+  const queryClient = useQueryClient();
+  const [timeTaken, setTimeTaken] = useState<number | null>(null);
+  const renderStartTime = useRef<number>(performance.now());
   const apiRef = useGridApiRef();
+  const setCsrCacheHit = useRenderStore((state) => state.setCsrCacheHit);
 
   useEffect(() => {
     if (cryptoData) {
@@ -30,69 +76,50 @@ const RenderCSR = () => {
   }, [cryptoData]);
 
   useEffect(() => {
-    const stored = localStorage.getItem("csrRenderCount");
-    const count = stored ? parseInt(stored) + 1 : 1;
-    localStorage.setItem("csrRenderCount", count.toString());
-    setRenderCount(count);
-  }, []);
+    const cached = queryClient.getQueryCache().find({ queryKey: ["crypto"] });
 
-  const columns: GridColDef[] = [
-    {
-      field: "id",
-      headerName: "ID",
-      width: 90,
-    },
-    {
-      field: "rank",
-      headerName: "Rank",
-      width: 90,
-    },
-    {
-      field: "symbol",
-      headerName: "Symbol",
-      width: 90,
-    },
-    {
-      field: "name",
-      headerName: "Name",
-      width: 90,
-    },
-    {
-      field: "supply",
-      headerName: "Supply",
-      width: 90,
-    },
-    {
-      field: "maxSupply",
-      headerName: "Max Supply",
-      width: 120,
-    },
-    {
-      field: "marketCapUsd",
-      headerName: "Market Cap",
-      width: 120,
-    },
-    {
-      field: "volumeUsd24Hr",
-      headerName: "Volume",
-      width: 90,
-    },
-    {
-      field: "priceUsd",
-      headerName: "Price",
-      width: 90,
-    },
-    {
-      field: "changePercent24Hr",
-      headerName: "Change",
-      width: 90,
-    },
-    {
-      field: "vwap24Hr",
-      headerName: "VWAP",
-      width: 90,
-    },
-  ];
+    const wasFromCache =
+      !!cached?.state.data &&
+      !cached.state.isInvalidated &&
+      cached.state.fetchStatus === "idle" &&
+      cached.state.status === "success";
+
+    setCsrCacheHit(wasFromCache);
+
+    if (wasFromCache) {
+      toast(
+        "This render was faster because React Query cached the previous response!",
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          style: {
+            marginLeft: "40rem",
+          },
+        }
+      );
+    }
+  }, [queryClient, setCsrCacheHit]);
+
+  const filteredData = useMemo(() => {
+    return cryptoData
+      ? cryptoData.data.filter((coin) => {
+          const searchString = `${coin.name} ${coin.priceUsd} ${coin.changePercent24Hr} ${coin.marketCapUsd} ${coin.rank} ${coin.supply} ${coin.maxSupply} ${coin.symbol} ${coin.volumeUsd24Hr} ${coin.vwap24Hr} ${coin.id}`;
+          return searchString
+            .toLowerCase()
+            .includes(state.searchTerm.toLowerCase());
+        })
+      : [];
+  }, [cryptoData, state.searchTerm]);
+
+  useEffect(() => {
+    if (cryptoData?.data) {
+      dispatch({ type: "SET_FILTERED_DATA", payload: filteredData });
+    }
+  }, [cryptoData, state.searchTerm, filteredData]);
 
   return (
     <Grid2
@@ -101,8 +128,8 @@ const RenderCSR = () => {
       justifyContent="center"
       alignItems="center"
       height="100%"
-      padding="1rem"
     >
+      <ToastContainer />
       {!cryptoLoading && cryptoData?.data?.length && (
         <Grid2
           size={{ xs: 12, md: 8, lg: 6 }}
@@ -121,86 +148,105 @@ const RenderCSR = () => {
           <Typography variant="subtitle1" color="white">
             Time to response: {timeTaken?.toFixed()}ms
           </Typography>
-          <Box display="flex" alignItems="center">
-            <Typography variant="subtitle1" color="white">
-              Render count (total): {renderCount}
-            </Typography>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "white",
-                color: "black",
-                height: "1.5rem",
-                fontSize: "0.75rem",
-                marginLeft: "0.7rem",
-              }}
-              onClick={() => {
-                localStorage.removeItem("csrRenderCount");
-                window.location.reload();
-              }}
-            >
-              Reset
-            </Button>
-          </Box>
         </Grid2>
       )}
 
       {!cryptoLoading ? (
-        cryptoData?.data?.length ? (
-          <>
-            <Grid2
-              size={{ xs: 12, md: 8, lg: 6 }}
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-            >
-              <Box display="flex" width="100%" justifyContent="center">
-                {renderCount > 1 && (
-                  <Alert
-                    severity="info"
-                    sx={{
-                      width: "fit-content",
-                      backgroundColor: "#e3f2fd",
-                      fontSize: "0.75rem",
-                      paddingY: "0.1rem",
-                      paddingX: "0.5rem",
-                    }}
-                  >
-                    This render was faster because React Query cached the
-                    previous response!
-                  </Alert>
-                )}
-              </Box>
-            </Grid2>
-            <Grid2
-              size={{ xs: 12, md: 10, lg: 8.5 }}
-              sx={{ overflowX: "scroll" }}
-              display="flex"
-              justifyContent="center"
-            >
+        state.filteredData ? (
+          <Grid2
+            size={{ xs: 12, md: 10, lg: 8.5 }}
+            sx={{ overflowX: "scroll" }}
+            display="flex"
+            justifyContent="center"
+          >
+            <Zoom in={!!state.filteredData} timeout={400}>
               <Box display="flex" flexDirection="column" width="100%">
                 <Box display="flex" width="100%" justifyContent="space-between">
+                  <ExternalToolbarControls apiRef={apiRef} />
                   <Link href="/projects/ssr" passHref>
-                    <Button
+                    <MotionButton
                       variant="contained"
                       startIcon={<FontAwesomeIcon icon={faWindowRestore} />}
+                      whileHover={{ scale: 1.1, y: -3 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                       sx={{
                         backgroundColor: "transparent",
                         color: "white",
                         border: "none",
                         boxShadow: "none",
+                        textTransform: "none",
+                        "&:hover": {
+                          boxShadow: "none",
+                        },
+                        marginLeft: "1rem",
                       }}
                     >
                       View SSR Page
-                    </Button>
+                    </MotionButton>
                   </Link>
-                  <ExternalToolbarControls apiRef={apiRef} />
+
+                  <MotionBox
+                    whileHover={{ scale: 1.1, y: -3 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <TextField
+                      fullWidth
+                      variant="standard"
+                      placeholder="Search"
+                      onChange={(e) =>
+                        dispatch({
+                          type: "SET_SEARCH_TERM",
+                          payload: e.target.value,
+                        })
+                      }
+                      sx={{
+                        paddingTop: "0.5rem",
+                        paddingRight: "0.5rem",
+                        "& .MuiInputBase-input": {
+                          color: "white", // <-- actual text color
+                        },
+                        "& .MuiInputBase-input::placeholder": {
+                          color: "white",
+                          opacity: 1, // required in some cases to ensure visibility
+                        },
+                        "& .MuiOutlinedInput-root": {
+                          height: "2.5rem",
+                        },
+                        "& .MuiInput-underline:before": {
+                          borderBottom: "1px solid white",
+                        },
+                        "& .MuiInput-underline:hover:before": {
+                          borderBottom: "1px solid white",
+                        },
+                        "& .MuiInput-underline:after": {
+                          borderBottom: "2px solid white", // slightly thicker when focused
+                        },
+                      }}
+                      slotProps={{
+                        input: {
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <FontAwesomeIcon
+                                icon={faSearch}
+                                style={{ fontSize: "0.8rem" }}
+                                color="white"
+                              />
+                            </InputAdornment>
+                          ),
+                        },
+                      }}
+                    />
+                  </MotionBox>
                 </Box>
                 <Box>
                   <DataGrid
-                    rows={cryptoData?.data}
+                    apiRef={apiRef}
+                    rows={state.filteredData}
                     columns={columns}
-                    pageSizeOptions={[10, 20, 50]}
+                    initialState={{
+                      pagination: { paginationModel: { pageSize: 10 } },
+                    }}
+                    pageSizeOptions={[10, 25, 100]}
                     sx={{
                       backgroundColor: "lightgray",
                       "& .MuiDataGrid-cell": {
@@ -215,8 +261,8 @@ const RenderCSR = () => {
                   />
                 </Box>
               </Box>
-            </Grid2>
-          </>
+            </Zoom>
+          </Grid2>
         ) : (
           <Grid2
             size={{ xs: 12, md: 10, lg: 8.5 }}

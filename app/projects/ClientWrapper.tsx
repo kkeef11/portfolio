@@ -9,7 +9,15 @@ export default function RenderToggle() {
       <Link href="/projects/ssr" passHref>
         <Button
           variant="contained"
-          sx={{ backgroundColor: "white", color: "black" }}
+          sx={{
+            backgroundColor: "white",
+            color: "black",
+            boxShadow: "none",
+            "&:hover": {
+              backgroundColor: "white",
+              boxShadow: "none",
+            },
+          }}
         >
           View SSR Page
         </Button>
@@ -17,7 +25,15 @@ export default function RenderToggle() {
       <Link href="/projects/csr" passHref>
         <Button
           variant="contained"
-          sx={{ backgroundColor: "white", color: "black" }}
+          sx={{
+            backgroundColor: "white",
+            color: "black",
+            boxShadow: "none",
+            "&:hover": {
+              backgroundColor: "white",
+              boxShadow: "none",
+            },
+          }}
         >
           View CSR Page
         </Button>

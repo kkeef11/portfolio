@@ -1,78 +1,16 @@
-import { GridColDef } from "@mui/x-data-grid";
 import { Box, Grid2, Typography } from "@mui/material";
 import { fetchCryptoDataSSR } from "@/app/api/ssr/crypto";
 import ClientDataGrid from "./DataGrid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPersonDigging } from "@fortawesome/free-solid-svg-icons";
-
-let renderCount = 0;
+import SyncSSRCacheFlag from "@/app/components/SyncSSRCacheFlag";
 
 const getCryptoData = async () => {
-  renderCount++;
   return await fetchCryptoDataSSR();
 };
 
 export default async function CryptoTableSSR() {
-  const { data, timestamp: timeTaken } = await getCryptoData();
-  console.log("SSR Render Count:", renderCount);
-  console.log("SSR Data:", data);
-  const columns: GridColDef[] = [
-    {
-      field: "id",
-      headerName: "ID",
-      width: 90,
-    },
-    {
-      field: "rank",
-      headerName: "Rank",
-      width: 90,
-    },
-    {
-      field: "symbol",
-      headerName: "Symbol",
-      width: 90,
-    },
-    {
-      field: "name",
-      headerName: "Name",
-      width: 90,
-    },
-    {
-      field: "supply",
-      headerName: "Supply",
-      width: 90,
-    },
-    {
-      field: "maxSupply",
-      headerName: "Max Supply",
-      width: 120,
-    },
-    {
-      field: "marketCapUsd",
-      headerName: "Market Cap",
-      width: 120,
-    },
-    {
-      field: "volumeUsd24Hr",
-      headerName: "Volume",
-      width: 90,
-    },
-    {
-      field: "priceUsd",
-      headerName: "Price",
-      width: 90,
-    },
-    {
-      field: "changePercent24Hr",
-      headerName: "Change",
-      width: 90,
-    },
-    {
-      field: "vwap24Hr",
-      headerName: "VWAP",
-      width: 90,
-    },
-  ];
+  const { data, timestamp: timeTaken, wasCached } = await getCryptoData();
 
   return data.length ? (
     <Grid2
@@ -83,6 +21,7 @@ export default async function CryptoTableSSR() {
       height="100%"
       padding="1rem"
     >
+      <SyncSSRCacheFlag wasCached={wasCached} />
       <Grid2
         size={{ xs: 12, md: 8, lg: 6 }}
         display="flex"
@@ -97,13 +36,8 @@ export default async function CryptoTableSSR() {
           Server Side Rendered Table
         </Typography>
         <Typography variant="subtitle1" color="white">
-          Time to response: {timeTaken}ms
+          Time to response: {timeTaken.toFixed()}ms
         </Typography>
-        <Box display="flex" alignItems="center">
-          <Typography variant="subtitle1" color="white">
-            Render count (total): {renderCount}
-          </Typography>
-        </Box>
       </Grid2>
       <Grid2
         size={{ xs: 12, md: 10, lg: 8.5 }}
@@ -111,7 +45,7 @@ export default async function CryptoTableSSR() {
         display="flex"
         justifyContent="center"
       >
-        <ClientDataGrid rows={data} columns={columns} />
+        <ClientDataGrid rows={data} wasCached={wasCached} />
       </Grid2>
     </Grid2>
   ) : (

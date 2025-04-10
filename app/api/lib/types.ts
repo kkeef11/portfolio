@@ -15,6 +15,7 @@ export type CryptoAsset = {
 export type CryptoAssetFields = {
   data: CryptoAsset[];
   timestamp: number;
+  wasCached: boolean;
 };
 
 export type CryptoAssetResponse = Promise<CryptoAssetFields>;

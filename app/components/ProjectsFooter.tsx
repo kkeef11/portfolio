@@ -7,10 +7,7 @@ import { motion } from "framer-motion";
 
 const MotionBox = motion(Box);
 
-const projects = [
-  { id: 1, title: "SSR vs CSR", path: "/projects/ssr" },
-  { id: 2, title: "visx vs victory (coming soon..)", path: "/projects" },
-];
+const projects = [{ id: 1, title: "Back to projects", path: "/projects" }];
 
 export default function Footer() {
   return (
@@ -18,10 +15,10 @@ export default function Footer() {
       component="footer"
       display="flex"
       justifyContent="center"
-      padding="2rem"
       width="100%"
+      paddingBottom="1rem"
     >
-      <Box display="flex" justifyContent="center" gap={4}>
+      <Box display="flex" justifyContent="center">
         {projects.map((project) => (
           <Link key={project.id} href={project.path} passHref>
             <MotionBox
@@ -31,7 +28,7 @@ export default function Footer() {
               transition={{ type: "spring", stiffness: 300 }}
               sx={{ cursor: "pointer", padding: "0.5rem", color: "white" }}
             >
-              <FolderIcon sx={{ color: "#555555" }} />
+              <FolderIcon sx={{ color: "grey" }} />
               <Typography sx={{ marginLeft: "0.5rem" }}>
                 {project.title}
               </Typography>

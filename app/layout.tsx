@@ -5,6 +5,7 @@ import "./globals.css";
 import { RenderModeProvider } from "./context/RenderModeContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NavBar from "./components/NavBar";
+import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient();
 
