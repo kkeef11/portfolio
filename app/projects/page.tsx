@@ -96,14 +96,14 @@ export default function ProjectPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{
                 opacity: hoveredProject === project.id ? 1 : 0,
-                height: hoveredProject === project.id ? "3rem" : 0,
+                height: hoveredProject === project.id ? "5rem" : 0,
               }}
               transition={{ duration: 0.3 }}
               sx={{
                 position: "absolute",
                 top: "100%",
                 left: 0,
-                height: "fit-content",
+                height: "auto",
                 width: "100%",
                 background: "rgba(255,255,255,0.1)",
                 borderRadius: "5px",
@@ -111,14 +111,15 @@ export default function ProjectPage() {
                 alignItems: "center",
                 justifyContent: "center",
                 zIndex: 1,
-                padding: "2rem",
               }}
             >
               <Typography
                 variant="body2"
                 color="white"
                 textAlign="center"
-                padding="0.5rem"
+                padding="0.3rem"
+                marginTop="0.5rem"
+                marginBottom="0.5rem"
               >
                 {project.description}
               </Typography>
