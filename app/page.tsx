@@ -1,8 +1,8 @@
-import { Box, Grid2, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
 export default function Home() {
   return (
-    <Grid2
+    <Grid
       container
       direction="column"
       justifyContent="center"
@@ -10,7 +10,7 @@ export default function Home() {
       sx={{ height: "90%", width: "100%" }}
       spacing={2}
     >
-      <Grid2
+      <Grid
         size={{ xs: 12, md: 8, lg: 6 }}
         sx={{ paddingLeft: "1rem", paddingRight: "1rem" }}
       >
@@ -23,8 +23,8 @@ export default function Home() {
         >
           Hey, my name&apos;s Kevin!
         </Typography>
-      </Grid2>
-      <Grid2
+      </Grid>
+      <Grid
         size={{ xs: 12, md: 8, lg: 6 }}
         sx={{ paddingLeft: "1rem", paddingRight: "1rem" }}
       >
@@ -52,7 +52,7 @@ export default function Home() {
             Thanks for swinging by!
           </Typography>
         </Box>
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   );
 }
