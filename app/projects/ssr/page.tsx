@@ -1,4 +1,4 @@
-import { Box, Grid2, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { fetchCryptoDataSSR } from "@/app/api/ssr/crypto";
 import ClientDataGrid from "./DataGrid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +13,7 @@ export default async function CryptoTableSSR() {
   const { data, timestamp: timeTaken, wasCached } = await getCryptoData();
 
   return data.length ? (
-    <Grid2
+    <Grid
       container
       direction="column"
       justifyContent="center"
@@ -22,7 +22,7 @@ export default async function CryptoTableSSR() {
       padding="1rem"
     >
       <SyncSSRCacheFlag wasCached={wasCached} />
-      <Grid2
+      <Grid
         size={{ xs: 12, md: 8, lg: 6 }}
         display="flex"
         flexDirection="column"
@@ -38,25 +38,25 @@ export default async function CryptoTableSSR() {
         <Typography variant="subtitle1" color="white">
           Time to response: {timeTaken.toFixed()}ms
         </Typography>
-      </Grid2>
-      <Grid2
+      </Grid>
+      <Grid
         size={{ xs: 12, md: 10, lg: 8.5 }}
         overflow="scroll"
         display="flex"
         justifyContent="center"
       >
         <ClientDataGrid rows={data} wasCached={wasCached} />
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   ) : (
-    <Grid2
+    <Grid
       container
       justifyContent="center"
       alignItems="center"
       height="100%"
       padding="1rem"
     >
-      <Grid2
+      <Grid
         size={{ xs: 12, md: 10, lg: 8.5 }}
         display="flex"
         flexDirection="column"
@@ -70,7 +70,7 @@ export default async function CryptoTableSSR() {
           <br /> so for now this page is under construction until we get a
           access key!
         </Typography>
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   );
 }

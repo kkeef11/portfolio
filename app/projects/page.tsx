@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Grid2, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -22,21 +22,21 @@ export default function ProjectPage() {
     {
       id: 2,
       title: "Visx vs Recharts",
-      path: "/",
+      path: "/projects/chartComparison",
       description:
         "Coming soon: A detailed comparison of Visx and Recharts for data visualization. This project will involve setting up a near real-time data feed by importing data from CoinCap every 30 minutes, storing it in DynamoDB for historical analysis, and then visualizing it with both libraries. Stay tuned to find out which graphing library comes out on top!",
     },
   ];
 
   return (
-    <Grid2
+    <Grid
       container
       direction="column"
       justifyContent="center"
       alignItems="center"
       sx={{ height: "80%", width: "100%" }}
     >
-      <Grid2
+      <Grid
         size={{ xs: 12, md: 8, lg: 6 }}
         display="flex"
         justifyContent="center"
@@ -44,9 +44,9 @@ export default function ProjectPage() {
         <Typography variant="h3" color="white" fontFamily="Open Sans">
           Mini Projects
         </Typography>
-      </Grid2>
+      </Grid>
 
-      <Grid2
+      <Grid
         display="flex"
         justifyContent="center"
         sx={{ paddingLeft: "1rem", paddingRight: "1rem", paddingTop: "2rem" }}
@@ -126,7 +126,7 @@ export default function ProjectPage() {
             </MotionBox>
           </Box>
         ))}
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   );
 }

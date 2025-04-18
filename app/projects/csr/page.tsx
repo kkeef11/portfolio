@@ -7,12 +7,12 @@ import {
   Box,
   Button,
   Typography,
-  Grid2,
+  Grid,
   InputAdornment,
   TextField,
   Zoom,
 } from "@mui/material";
-import { useCrypto } from "../../queries/crypto";
+import { useFetchCryptoTableData } from "../../queries/crypto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleNotch,
@@ -60,7 +60,8 @@ const initialState = {
 // to do - make time to response include render of the page time
 const RenderCSR = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { data: cryptoData, isLoading: cryptoLoading } = useCrypto();
+  const { data: cryptoData, isLoading: cryptoLoading } =
+    useFetchCryptoTableData();
   const queryClient = useQueryClient();
   const [timeTaken, setTimeTaken] = useState<number | null>(null);
   const renderStartTime = useRef<number>(performance.now());
@@ -122,7 +123,7 @@ const RenderCSR = () => {
   }, [cryptoData, state.searchTerm, filteredData]);
 
   return (
-    <Grid2
+    <Grid
       container
       direction="column"
       justifyContent="center"
@@ -131,7 +132,7 @@ const RenderCSR = () => {
     >
       <ToastContainer />
       {!cryptoLoading && cryptoData?.data?.length && (
-        <Grid2
+        <Grid
           size={{ xs: 12, md: 8, lg: 6 }}
           display="flex"
           flexDirection="column"
@@ -148,12 +149,12 @@ const RenderCSR = () => {
           <Typography variant="subtitle1" color="white">
             Time to response: {timeTaken?.toFixed()}ms
           </Typography>
-        </Grid2>
+        </Grid>
       )}
 
       {!cryptoLoading ? (
         state.filteredData ? (
-          <Grid2
+          <Grid
             size={{ xs: 12, md: 10, lg: 8.5 }}
             sx={{ overflowX: "scroll" }}
             display="flex"
@@ -262,9 +263,9 @@ const RenderCSR = () => {
                 </Box>
               </Box>
             </Zoom>
-          </Grid2>
+          </Grid>
         ) : (
-          <Grid2
+          <Grid
             size={{ xs: 12, md: 10, lg: 8.5 }}
             display="flex"
             flexDirection="column"
@@ -285,7 +286,7 @@ const RenderCSR = () => {
               <br /> so for now this page is under construction until we get a
               access key!
             </Typography>
-          </Grid2>
+          </Grid>
         )
       ) : (
         <FontAwesomeIcon
@@ -296,7 +297,7 @@ const RenderCSR = () => {
           color="white"
         />
       )}
-    </Grid2>
+    </Grid>
   );
 };
 
