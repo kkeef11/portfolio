@@ -1,6 +1,4 @@
 import {
-  LineChart,
-  Line,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -12,7 +10,12 @@ import {
 import dayjs from "dayjs";
 import { Card } from "@mui/material";
 
-function RechartLineGraph({ data }) {
+interface DataPoint {
+  timestamp: string | number;
+  price: number;
+}
+
+function RechartLineGraph({ data }: { data: DataPoint[] }) {
   return (
     <Card
       sx={{

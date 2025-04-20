@@ -14,7 +14,7 @@ export function useFetchCryptoTableData() {
   });
 }
 
-export function useFetchCryptoChartData(options) {
+export function useFetchCryptoChartData() {
   return useQuery({
     queryKey: ["cryptoData"],
     queryFn: async () => {

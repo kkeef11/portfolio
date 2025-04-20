@@ -1,24 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { LinePath, Bar, AreaClosed, Line } from "@visx/shape";
 import { Group } from "@visx/group";
 import { curveMonotoneX } from "@visx/curve";
 import { scaleTime, scaleLinear } from "@visx/scale";
-import {
-  useTooltip,
-  TooltipWithBounds,
-  defaultStyles,
-  Tooltip,
-} from "@visx/tooltip";
+import { useTooltip, defaultStyles, Tooltip } from "@visx/tooltip";
 import { localPoint } from "@visx/event";
 import { bisector } from "d3-array";
 import { LinearGradient } from "@visx/gradient";
-import { GridColumns, GridRows } from "@visx/grid";
+import { GridRows } from "@visx/grid";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { useCallback, useMemo } from "react";
 import dayjs from "dayjs";
 
 type Data = {
-  timestamp: string;
+  timestamp: number;
   price: number;
 };
 
@@ -43,9 +38,17 @@ const VisxLineGraph = React.memo(
       color: "white",
     };
 
-    const xAccessor = (d) => d.timestamp;
-    const yAccessor = (d) => d.price;
-    const formatDate = (d) => dayjs(d).format("YYYY-MM-DD HH:mm:ss");
+    const xAccessor = useCallback(
+      (d: { timestamp: number; price: number }) => d.timestamp,
+      []
+    );
+    const yAccessor = useCallback(
+      (d: { timestamp: number; price: number }) => d.price,
+      []
+    );
+    const formatDate = (
+      d: string | number | Date | dayjs.Dayjs | null | undefined
+    ) => dayjs(d).format("YYYY-MM-DD HH:mm:ss");
     const bisectDate = bisector<Data, Date>((d) => new Date(d.timestamp)).left;
 
     const dateScale = useMemo(
@@ -57,7 +60,7 @@ const VisxLineGraph = React.memo(
             new Date(Math.max(...data.map((d) => xAccessor(d)))),
           ],
         }),
-      [innerWidth, margin.left, data]
+      [innerWidth, margin.left, data, xAccessor]
     );
     const priceScale = useMemo(
       () =>
@@ -69,17 +72,16 @@ const VisxLineGraph = React.memo(
           ],
           nice: true,
         }),
-      [margin.top, innerHeight]
+      [margin.top, innerHeight, data, yAccessor]
     );
 
     const {
       tooltipData,
       tooltipLeft = 0,
       tooltipTop = 0,
-      tooltipOpen,
       showTooltip,
       hideTooltip,
-    } = useTooltip();
+    } = useTooltip<Data>();
 
     const handleTooltip = useCallback(
       (
@@ -101,14 +103,21 @@ const VisxLineGraph = React.memo(
               : d0;
         }
 
-        const isRightSide = tooltipLeft > width / 2;
         showTooltip({
           tooltipData: d,
           tooltipLeft: x,
           tooltipTop: priceScale(yAccessor(d)),
         });
       },
-      [showTooltip, priceScale, dateScale]
+      [
+        showTooltip,
+        priceScale,
+        dateScale,
+        bisectDate,
+        data,
+        xAccessor,
+        yAccessor,
+      ]
     );
 
     return (
@@ -175,7 +184,7 @@ const VisxLineGraph = React.memo(
                 dy: 3,
               })}
               tickFormat={(d) => {
-                const date = new Date(d);
+                const date = new Date(d as Date);
                 return dayjs(date).format("YYYY-MM-DD HH:mm:ss");
               }}
               tickValues={[xAccessor(data[Math.floor(data.length / 2)])]}
@@ -238,7 +247,7 @@ const VisxLineGraph = React.memo(
         </svg>
         {tooltipData && (
           <div>
-            <TooltipWithBounds
+            <Tooltip
               key={Math.random()}
               top={tooltipTop - 12}
               left={
@@ -249,7 +258,8 @@ const VisxLineGraph = React.memo(
               style={tooltipStyles}
             >
               {`$${Number(yAccessor(tooltipData)).toFixed(2)}`}
-            </TooltipWithBounds>
+            </Tooltip>
+
             <Tooltip
               top={innerHeight + margin.top + 12}
               left={tooltipLeft}
@@ -268,5 +278,7 @@ const VisxLineGraph = React.memo(
     );
   }
 );
+
+VisxLineGraph.displayName = "VisxLineGraph";
 
 export default VisxLineGraph;
