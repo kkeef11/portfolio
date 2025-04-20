@@ -1,5 +1,4 @@
 import aws from "aws-sdk";
-import { NextApiRequest, NextApiResponse } from "next";
 
 aws.config.update({
   region: "us-east-2",
@@ -9,7 +8,7 @@ aws.config.update({
 
 const docClient = new aws.DynamoDB.DocumentClient();
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
   //   const { limit } = req.query;
   const params = {
     TableName: "crypto_v1",
