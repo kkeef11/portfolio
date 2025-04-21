@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useMemo, useReducer } from "react";
-import { DataGrid, useGridApiRef } from "@mui/x-data-grid";
+import { DataGrid, useGridApiRef } from "@mui/x-data-Grid";
 import { columns } from "@/app/lib/dataGridColumns";
 import {
   Box,
   Button,
   Typography,
-  Grid,
+  Grid2,
   InputAdornment,
   TextField,
   Zoom,
@@ -123,7 +123,7 @@ const RenderCSR = () => {
   }, [cryptoData, state.searchTerm, filteredData]);
 
   return (
-    <Grid
+    <Grid2
       container
       direction="column"
       justifyContent="center"
@@ -132,7 +132,7 @@ const RenderCSR = () => {
     >
       <ToastContainer />
       {!cryptoLoading && cryptoData?.data?.length && (
-        <Grid
+        <Grid2
           size={{ xs: 12, md: 8, lg: 6 }}
           display="flex"
           flexDirection="column"
@@ -149,12 +149,12 @@ const RenderCSR = () => {
           <Typography variant="subtitle1" color="white">
             Time to response: {timeTaken?.toFixed()}ms
           </Typography>
-        </Grid>
+        </Grid2>
       )}
 
       {!cryptoLoading ? (
         state.filteredData ? (
-          <Grid
+          <Grid2
             size={{ xs: 12, md: 10, lg: 8.5 }}
             sx={{ overflowX: "scroll" }}
             display="flex"
@@ -263,9 +263,9 @@ const RenderCSR = () => {
                 </Box>
               </Box>
             </Zoom>
-          </Grid>
+          </Grid2>
         ) : (
-          <Grid
+          <Grid2
             size={{ xs: 12, md: 10, lg: 8.5 }}
             display="flex"
             flexDirection="column"
@@ -286,7 +286,7 @@ const RenderCSR = () => {
               <br /> so for now this page is under construction until we get a
               access key!
             </Typography>
-          </Grid>
+          </Grid2>
         )
       ) : (
         <FontAwesomeIcon
@@ -297,7 +297,7 @@ const RenderCSR = () => {
           color="white"
         />
       )}
-    </Grid>
+    </Grid2>
   );
 };
 

@@ -1,4 +1,4 @@
-import { GridColDef } from "@mui/x-data-grid";
+import { GridColDef } from "@mui/x-data-Grid";
 
 export const columns: GridColDef[] = [
   {

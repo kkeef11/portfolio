@@ -5,9 +5,9 @@ import { Box, Button } from "@mui/material";
 import {
   gridPreferencePanelStateSelector,
   GridPreferencePanelsValue,
-} from "@mui/x-data-grid";
+} from "@mui/x-data-Grid";
 import { faColumns, faFilter } from "@fortawesome/free-solid-svg-icons";
-import { GridApiCommunity } from "@mui/x-data-grid/internals";
+import { GridApiCommunity } from "@mui/x-data-Grid/internals";
 import { motion } from "framer-motion";
 
 const MotionButton = motion(Button);

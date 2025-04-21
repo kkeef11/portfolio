@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid2, Typography } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -29,14 +29,14 @@ export default function ProjectPage() {
   ];
 
   return (
-    <Grid
+    <Grid2
       container
       direction="column"
       justifyContent="center"
       alignItems="center"
       sx={{ height: "80%", width: "100%" }}
     >
-      <Grid
+      <Grid2
         size={{ xs: 12, md: 8, lg: 6 }}
         display="flex"
         justifyContent="center"
@@ -44,9 +44,9 @@ export default function ProjectPage() {
         <Typography variant="h3" color="white" fontFamily="Open Sans">
           Mini Projects
         </Typography>
-      </Grid>
+      </Grid2>
 
-      <Grid
+      <Grid2
         display="flex"
         justifyContent="center"
         sx={{ paddingLeft: "1rem", paddingRight: "1rem", paddingTop: "2rem" }}
@@ -126,7 +126,7 @@ export default function ProjectPage() {
             </MotionBox>
           </Box>
         ))}
-      </Grid>
-    </Grid>
+      </Grid2>
+    </Grid2>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Divider, Fade, Grid, Typography } from "@mui/material";
+import { Box, Divider, Fade, Grid2, Typography } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import { useFetchCryptoChartData } from "@/app/queries/crypto";
 import RechartLineGraph from "./recharts/LineChart";
@@ -38,9 +38,9 @@ const Page = () => {
   }, [chartData]);
   return !isLoading && memoizedChartData ? (
     <Fade in={true} timeout={400}>
-      <Grid container padding="2rem" display="flex" justifyContent="center">
+      <Grid2 container padding="2rem" display="flex" justifyContent="center">
         <ToastContainer />
-        <Grid
+        <Grid2
           padding="1rem"
           size={{ xs: 10, md: 12, lg: 10 }}
           sx={{
@@ -61,12 +61,12 @@ const Page = () => {
           <Typography variant="subtitle1" color="white">
             Here I&apos;m comparing two charting libraries, Visx and Recharts,
             using the same data set. This data set was built by firing an AWS
-            Lambda function every 15 minutes to query the CoinCap API for
-            Bitcoin prices. Each entry is stored in DynamoDB and fetched here
-            for display. Below are my thoughts on each library!
+            Lambda function every 15 minutes to query a CoinCap API for Bitcoin
+            prices at that given moment. Each entry is stored in DynamoDB and
+            fetched here for display. Below are my thoughts on each library!
           </Typography>
-        </Grid>
-        <Grid
+        </Grid2>
+        <Grid2
           padding="1rem"
           sx={{ width: "100%" }}
           size={{ xs: 10, md: 12, lg: 10 }}
@@ -137,12 +137,13 @@ const Page = () => {
                   >
                     Visx - A low level library for building custom charts, with
                     a focus on customizability and performance. Given the low
-                    level nature of the library, it is more flexible and allows
-                    for more customization than Recharts. However, it requires
-                    considerably more effort to set up and use effectively. So
-                    if you&apos;re looking for a quick, out of the box working
-                    graph, this won&apos;t be the best option. But if you have
-                    the capacity to work with it, it&apos;s phenomenal.
+                    level nature of the library, it&apos;s way more flexible and
+                    allows for more customization than Recharts. However, it
+                    requires considerably more effort to set up and use
+                    effectively. So if you&apos;re looking for a quick, out of
+                    the box working graph, this won&apos;t be the best option.
+                    But if you have the capacity to work with it, it&apos;s
+                    phenomenal.
                   </Typography>
                 </Box>
                 <Divider
@@ -169,8 +170,8 @@ const Page = () => {
               </Box>
             </MotionBox>
           </Box>
-        </Grid>
-        <Grid padding="1rem" width="100%" size={{ xs: 10, md: 12, lg: 10 }}>
+        </Grid2>
+        <Grid2 padding="1rem" width="100%" size={{ xs: 10, md: 12, lg: 10 }}>
           <Box sx={{ position: "relative", width: "100%", height: 400 }}>
             <FlipCard
               showFront={customRechartView}
@@ -215,11 +216,12 @@ const Page = () => {
                     color="white"
                     sx={{ marginLeft: "1rem" }}
                   >
-                    Recharts - A composable charting library built on React
-                    components. It is easy to use and provides a lot of built-in
-                    features, but it may not be as flexible as Visx for
-                    customizations. If you need something quick and simple, this
-                    is 100% the route you want to take.
+                    Recharts - A high level charting library built on React
+                    components. It&apos;s pretty easy to use and provides a lot
+                    of built-in features, like the tooltip needs nothing except
+                    to be used. But it may not be as flexible as Visx when it
+                    comes to customizations. If you need something quick and
+                    simple, this is 100% the route you want to take.
                   </Typography>
                 </Box>
                 <Divider
@@ -246,11 +248,11 @@ const Page = () => {
               </Box>
             </MotionBox>
           </Box>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Fade>
   ) : (
-    <Grid
+    <Grid2
       container
       padding="2rem"
       display="flex"
@@ -267,7 +269,7 @@ const Page = () => {
           color="white"
         />
       </Box>
-    </Grid>
+    </Grid2>
   );
 };
 
