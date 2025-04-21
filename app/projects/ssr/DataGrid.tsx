@@ -1,6 +1,6 @@
 "use client";
 
-import { DataGrid, useGridApiRef } from "@mui/x-data-Grid";
+import { DataGrid, useGridApiRef } from "@mui/x-data-grid";
 import { columns } from "@/app/lib/dataGridColumns";
 import { Box, Button, InputAdornment, TextField, Zoom } from "@mui/material";
 import { CryptoAsset } from "@/app/api/lib/types";

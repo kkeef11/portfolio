@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useMemo, useReducer } from "react";
-import { DataGrid, useGridApiRef } from "@mui/x-data-Grid";
+import { DataGrid, useGridApiRef } from "@mui/x-data-grid";
 import { columns } from "@/app/lib/dataGridColumns";
 import {
   Box,
