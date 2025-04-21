@@ -124,6 +124,49 @@ const Page = () => {
                 justifyContent="center"
                 gap={1}
               >
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  onClick={() => setCustomVisxView(!customVisxView)}
+                  sx={{ cursor: "pointer" }}
+                >
+                  <Typography
+                    variant="subtitle1"
+                    color="white"
+                    sx={{ marginLeft: "1rem" }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faEye}
+                      size="xl"
+                      color="white"
+                      style={{ paddingRight: "0.3rem" }}
+                    />
+                    Click
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    fontWeight="bold"
+                    color="white"
+                    sx={{
+                      marginRight: "0.2rem",
+                      marginLeft: "0.2rem",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    here
+                  </Typography>
+                  <Typography variant="subtitle1" color="white">
+                    to see what Visx looks like out of the box!
+                  </Typography>
+                </Box>
+                <Divider
+                  sx={{
+                    backgroundColor: "white",
+                    height: "2px",
+                    width: "100%",
+                  }}
+                />
                 <Box display="flex" alignItems="center" justifyContent="center">
                   <FontAwesomeIcon
                     icon={faMagnifyingGlassArrowRight}
@@ -146,27 +189,6 @@ const Page = () => {
                     phenomenal.
                   </Typography>
                 </Box>
-                <Divider
-                  sx={{
-                    backgroundColor: "white",
-                    height: "2px",
-                    width: "100%",
-                  }}
-                />
-                <Typography
-                  variant="subtitle1"
-                  color="white"
-                  sx={{ marginLeft: "1rem", cursor: "pointer" }}
-                  onClick={() => setCustomVisxView(!customVisxView)}
-                >
-                  <FontAwesomeIcon
-                    icon={faEye}
-                    size="xl"
-                    color="white"
-                    style={{ paddingRight: "0.5rem" }}
-                  />
-                  Click here to see what Visx looks like out of the box!{" "}
-                </Typography>
               </Box>
             </MotionBox>
           </Box>
@@ -205,6 +227,49 @@ const Page = () => {
                 justifyContent="center"
                 gap={1}
               >
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  onClick={() => setCustomRechartView(!customRechartView)}
+                  sx={{ cursor: "pointer" }}
+                >
+                  <Typography
+                    variant="subtitle1"
+                    color="white"
+                    sx={{ marginLeft: "1rem" }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faEye}
+                      size="xl"
+                      color="white"
+                      style={{ paddingRight: "0.3rem" }}
+                    />
+                    Click
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    fontWeight="bold"
+                    color="white"
+                    sx={{
+                      marginRight: "0.2rem",
+                      marginLeft: "0.2rem",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    here
+                  </Typography>
+                  <Typography variant="subtitle1" color="white">
+                    to see what Recharts looks like out of the box!
+                  </Typography>
+                </Box>
+                <Divider
+                  sx={{
+                    backgroundColor: "white",
+                    height: "2px",
+                    width: "100%",
+                  }}
+                />
                 <Box display="flex" alignItems="center" justifyContent="center">
                   <FontAwesomeIcon
                     icon={faMagnifyingGlassArrowRight}
@@ -224,27 +289,6 @@ const Page = () => {
                     simple, this is 100% the route you want to take.
                   </Typography>
                 </Box>
-                <Divider
-                  sx={{
-                    backgroundColor: "white",
-                    height: "2px",
-                    width: "100%",
-                  }}
-                />
-                <Typography
-                  variant="subtitle1"
-                  color="white"
-                  sx={{ marginLeft: "1rem", cursor: "pointer" }}
-                  onClick={() => setCustomRechartView(!customRechartView)}
-                >
-                  <FontAwesomeIcon
-                    icon={faEye}
-                    size="xl"
-                    color="white"
-                    style={{ paddingRight: "0.5rem" }}
-                  />
-                  Click here to see what Visx looks like out of the box!{" "}
-                </Typography>
               </Box>
             </MotionBox>
           </Box>

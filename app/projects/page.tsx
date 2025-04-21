@@ -24,7 +24,7 @@ export default function ProjectPage() {
       title: "Visx vs Recharts",
       path: "/projects/chartComparison",
       description:
-        "Coming soon: A detailed comparison of Visx and Recharts for data visualization. This project will involve setting up a near real-time data feed by importing data from CoinCap every 30 minutes, storing it in DynamoDB for historical analysis, and then visualizing it with both libraries. Stay tuned to find out which graphing library comes out on top!",
+        "A comparison of Visx and Recharts charting libraries for data visualization",
     },
   ];
 
