@@ -21,7 +21,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@mui/icons-material": "^6.4.8",
     "@mui/material": "^6.4.8",
-    "@mui/x-data-Grid": "^7.27.3",
+    "@mui/x-data-grid": "^7.27.3",
     "@prisma/client": "^6.5.0",
     "@tanstack/react-query": "^5.68.0",
     "@visx/visx": "^3.12.0",
