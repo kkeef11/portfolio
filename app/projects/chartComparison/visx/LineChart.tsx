@@ -7,7 +7,7 @@ import { useTooltip, defaultStyles, Tooltip } from "@visx/tooltip";
 import { localPoint } from "@visx/event";
 import { bisector } from "d3-array";
 import { LinearGradient } from "@visx/gradient";
-import { GridRows } from "@visx/Grid";
+import { GridRows } from "@visx/grid";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { useCallback, useMemo } from "react";
 import dayjs from "dayjs";
