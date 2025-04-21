@@ -1,12 +1,19 @@
 import aws from "aws-sdk";
 
-aws.config.update({
-  region: "us-east-2",
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-});
+let docClient: aws.DynamoDB.DocumentClient | null = null;
 
-const docClient = new aws.DynamoDB.DocumentClient();
+if (
+  process.env.AWS_ACCESS_KEY_ID &&
+  process.env.AWS_SECRET_ACCESS_KEY &&
+  process.env.AWS_REGION
+) {
+  aws.config.update({
+    region: process.env.AWS_REGION,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  });
+  docClient = new aws.DynamoDB.DocumentClient();
+}
 
 export async function GET() {
   //   const { limit } = req.query;
@@ -15,7 +22,7 @@ export async function GET() {
   };
 
   try {
-    const data = await docClient.scan(params).promise();
+    const data = await docClient?.scan(params).promise();
     return new Response(JSON.stringify({ data }), {
       status: 200,
       headers: {
