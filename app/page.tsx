@@ -12,8 +12,9 @@ export default function Home() {
         width: "100%",
         mt: {
           xs: "6rem",
-          sm: "4rem",
-          md: "4rem",
+          sm: "2rem",
+          md: "1rem",
+          lg: "1rem",
         },
       }}
       spacing={2}
