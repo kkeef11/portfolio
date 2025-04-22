@@ -23,11 +23,6 @@ export default function Home() {
         >
           Hey, my name&apos;s Kevin!
         </Typography>
-      </Grid2>
-      <Grid2
-        size={{ xs: 12, md: 8, lg: 6 }}
-        sx={{ paddingLeft: "1rem", paddingRight: "1rem" }}
-      >
         <Typography variant="body1" color="white" fontFamily="Open Sans">
           I&apos;m a software engineer with six years of experience specializing
           in full-stack development, primarily focused on React.js and
