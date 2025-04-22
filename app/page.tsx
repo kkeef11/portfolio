@@ -7,18 +7,25 @@ export default function Home() {
       direction="column"
       justifyContent="center"
       alignItems="center"
-      sx={{ height: "90%", width: "100%" }}
+      sx={{
+        height: "90%",
+        width: "100%",
+        mt: {
+          xs: "6rem",
+          sm: "4rem",
+          md: "4rem",
+        },
+      }}
       spacing={2}
     >
       <Grid2
-        size={{ xs: 12, md: 8, lg: 6 }}
+        size={{ xs: 12, md: 10, lg: 8 }}
         sx={{ paddingLeft: "1rem", paddingRight: "1rem" }}
       >
         <Typography
           variant="h3"
           color="white"
           fontFamily="Open Sans"
-          padding="3rem"
           textAlign="center"
         >
           Hey, my name&apos;s Kevin!
