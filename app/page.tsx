@@ -27,6 +27,7 @@ export default function Home() {
           color="white"
           fontFamily="Open Sans"
           textAlign="center"
+          paddingBottom="4rem"
         >
           Hey, my name&apos;s Kevin!
         </Typography>
