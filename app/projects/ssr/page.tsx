@@ -12,7 +12,7 @@ const getCryptoData = async () => {
 export default async function CryptoTableSSR() {
   const { data, timestamp: timeTaken, wasCached } = await getCryptoData();
 
-  return data.length ? (
+  return data && data.length ? (
     <Grid2
       container
       direction="column"
