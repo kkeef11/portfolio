@@ -65,6 +65,15 @@ const NavBar = () => {
     (page) => pathname === page.path || pathname.startsWith(page.path + "/")
   );
 
+  const handleResumeDownload = () => {
+    const link = document.createElement("a");
+    link.href = "/resume.pdf";
+    link.download = "kevin-keefer-resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center">
       <Tabs
@@ -145,11 +154,12 @@ const NavBar = () => {
           "
           >
             <IconButton
-              component="a"
-              href="/api/resume"
-              download
-              target="_blank"
-              rel="noopener noreferrer"
+              // component="a"
+              // href="/api/resume"
+              // download
+              // target="_blank"
+              // rel="noopener noreferrer"
+              onClick={handleResumeDownload}
             >
               <DescriptionIcon sx={{ color: "white" }} />
             </IconButton>
