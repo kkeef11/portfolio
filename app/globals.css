@@ -22,8 +22,8 @@
 html,
 body {
   height: 100vh;
-  background: url("/images/background-small.webp") no-repeat center center fixed;
   background-size: cover;
+  background-color: #131514;
   font-family: Arial, Helvetica, sans-serif;
 }
 

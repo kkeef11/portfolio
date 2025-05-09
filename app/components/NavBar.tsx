@@ -75,35 +75,71 @@ const NavBar = () => {
   };
 
   return (
-    <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Tabs
-        value={currentIndex}
-        textColor="inherit"
-        indicatorColor="secondary"
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      width="100%"
+      height="4rem"
+      position="relative"
+    >
+      <Box
+        display="flex"
+        justifyContent="center"
+        flexGrow={1}
+        marginTop="0.5rem"
         sx={{
-          "& .MuiTab-root": {
-            color: "white", // Sets text color to white
-            textTransform: "none",
-            fontFamily: "Open Sans",
-            fontSize: "18px",
-          },
-          "& .MuiTabs-indicator": {
-            backgroundColor: "white", // Sets the indicator color to white
-          },
+          backgroundColor: "#191c1a",
+          borderRadius: "20px",
+          height: "100%",
+          overflow: "hidden",
         }}
       >
-        {pages.map((page, index) => (
-          <Tab
-            key={index}
-            component={Link} // Next.js Link
-            href={page.path} // Set URL
-            prefetch={true}
-            label={page.label}
-            color="white"
-          />
-        ))}
-      </Tabs>
-      <Box display="flex" alignItems="center">
+        <Tabs
+          value={currentIndex}
+          textColor="inherit"
+          indicatorColor="secondary"
+          sx={{
+            paddingTop: "0.5rem",
+            "& .MuiTab-root": {
+              color: "white",
+              textTransform: "none",
+              fontSize: "18px",
+              transition: "color 0.3s ease-in-out", // Tab hover effect
+              "&:hover": {
+                animation: "flash 0.5s ease-in-out", // Flash effect
+              },
+            },
+            "& .MuiTabs-indicator": {
+              background: "linear-gradient(90deg, #865bec, white)", // Gradient indicator
+              height: "3px",
+            },
+            "@keyframes flash": {
+              "0%": { color: "#865bec" },
+              "50%": { color: "white" },
+              "100%": { color: "#865bec" },
+            },
+          }}
+        >
+          {pages.map((page, index) => (
+            <Tab
+              key={index}
+              component={Link}
+              href={page.path}
+              prefetch={true}
+              label={page.label}
+              color="white"
+            />
+          ))}
+        </Tabs>
+      </Box>
+      <Box
+        display="flex"
+        alignItems="center"
+        position="absolute"
+        right="10px"
+        top="15px"
+      >
         <MotionBox
           display="flex"
           alignItems="center"

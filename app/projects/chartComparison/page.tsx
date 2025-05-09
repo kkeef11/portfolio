@@ -132,8 +132,12 @@ const Page = () => {
                   sx={{ cursor: "pointer" }}
                 >
                   <Typography
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
                     variant="subtitle1"
                     color="white"
+                    flexWrap="wrap"
                     sx={{ marginLeft: "1rem" }}
                   >
                     <FontAwesomeIcon
@@ -142,21 +146,19 @@ const Page = () => {
                       color="white"
                       style={{ paddingRight: "0.3rem" }}
                     />
-                    Click
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    fontWeight="bold"
-                    color="white"
-                    sx={{
-                      marginRight: "0.2rem",
-                      marginLeft: "0.2rem",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    here
-                  </Typography>
-                  <Typography variant="subtitle1" color="white">
+                    Click{" "}
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight="bold"
+                      color="white"
+                      sx={{
+                        marginRight: "0.2rem",
+                        marginLeft: "0.2rem",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      here
+                    </Typography>
                     to see what Visx looks like out of the box!
                   </Typography>
                 </Box>
@@ -235,8 +237,12 @@ const Page = () => {
                   sx={{ cursor: "pointer" }}
                 >
                   <Typography
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
                     variant="subtitle1"
                     color="white"
+                    flexWrap="wrap"
                     sx={{ marginLeft: "1rem" }}
                   >
                     <FontAwesomeIcon
@@ -245,21 +251,19 @@ const Page = () => {
                       color="white"
                       style={{ paddingRight: "0.3rem" }}
                     />
-                    Click
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    fontWeight="bold"
-                    color="white"
-                    sx={{
-                      marginRight: "0.2rem",
-                      marginLeft: "0.2rem",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    here
-                  </Typography>
-                  <Typography variant="subtitle1" color="white">
+                    Click{" "}
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight="bold"
+                      color="white"
+                      sx={{
+                        marginRight: "0.2rem",
+                        marginLeft: "0.2rem",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      here
+                    </Typography>
                     to see what Recharts looks like out of the box!
                   </Typography>
                 </Box>

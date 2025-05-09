@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Grid2, Typography } from "@mui/material";
+import { Box, Divider, Grid2, Typography } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -39,11 +39,45 @@ export default function ProjectPage() {
       <Grid2
         size={{ xs: 12, md: 8, lg: 6 }}
         display="flex"
+        flexDirection="column"
         justifyContent="center"
+        alignItems="center"
       >
-        <Typography variant="h3" color="white" fontFamily="Open Sans">
+        <Typography
+          variant="h2"
+          sx={{
+            background: "linear-gradient(90deg, #865bec, white)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            color: "transparent",
+          }}
+        >
           Mini Projects
         </Typography>
+        <Typography
+          variant="h6"
+          color="#aaaaaa"
+          textAlign="center"
+          paddingTop="1rem"
+          sx={{
+            "@media (max-width: 900px)": {
+              fontSize: "1rem", // Reduce font size for mobile
+            },
+          }}
+        >
+          These are just a few of the mini projects I have worked on in my spare
+          time. Just a neat little way of comparing things for my own knowledge.
+          I have also worked on a few larger projects, but I am unable to share
+          them at this time.
+        </Typography>
+        <Divider
+          sx={{
+            backgroundColor: "white",
+            height: "2px",
+            width: "100%",
+            marginY: "2rem",
+          }}
+        />
       </Grid2>
 
       <Grid2
