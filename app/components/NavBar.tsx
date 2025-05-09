@@ -93,6 +93,9 @@ const NavBar = () => {
           borderRadius: "20px",
           height: "100%",
           overflow: "hidden",
+          "@media (max-width: 600px)": {
+            justifyContent: "flex-start", // This will change justifyContent to flex-start on small screens
+          },
         }}
       >
         <Tabs
