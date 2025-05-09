@@ -20,7 +20,6 @@ function BaseRechartLineGraph({ data }: { data: DataPoint[] }) {
         <Area
           type="monotone"
           dataKey="price"
-          stroke="#083852"
           fill="url(#colorPrice)"
           strokeWidth={2}
         />

@@ -128,19 +128,14 @@ const VisxLineGraph = React.memo(
             y={0}
             width={width}
             height={height}
-            fill="url(#area-background-gradient)"
+            fill="#323332"
             rx={14}
           />
           <Group top={margin.top}>
             <LinearGradient
-              id="area-background-gradient"
-              from="#d1dadc"
-              to="#b5bdbf"
-            />
-            <LinearGradient
               id="area-gradient"
-              from="#4597c1"
-              to="#346f8e"
+              from="#865bec"
+              to="#573b98"
               toOpacity={0.1}
             />
             <GridRows
@@ -163,22 +158,22 @@ const VisxLineGraph = React.memo(
             <AxisLeft
               left={margin.left}
               scale={priceScale}
-              stroke="white"
-              tickStroke="white"
+              stroke="#dadada"
+              tickStroke="#dadada"
               tickLabelProps={() => ({
-                fill: "#083852",
+                fill: "#dadada",
                 fontSize: 11,
-                dx: -35,
+                dx: -39,
                 dy: 3,
               })}
             />
             <AxisBottom
               top={innerHeight + margin.top}
               scale={dateScale}
-              stroke="white"
-              tickStroke="white"
+              stroke="#dadada"
+              tickStroke="#dadada"
               tickLabelProps={() => ({
-                fill: "#083852",
+                fill: "#dadada",
                 fontSize: 11,
                 dx: -50,
                 dy: 3,
@@ -195,7 +190,7 @@ const VisxLineGraph = React.memo(
               curve={curveMonotoneX}
               x={(d) => dateScale(xAccessor(d))}
               y={(d) => priceScale(yAccessor(d))}
-              stroke="#083852"
+              stroke="#75daad"
               strokeWidth={2}
               strokeLinecap="round"
             />
