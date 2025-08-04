@@ -2,7 +2,6 @@
 
 import { Box, Divider, Fade, Grid2, Typography } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
-import { useFetchCryptoChartData } from "@/app/queries/crypto";
 import RechartLineGraph from "./recharts/LineChart";
 import VisxLineGraph from "./visx/LineChart";
 import useResponsiveSize from "@/app/hooks/useResponsiveSize";
