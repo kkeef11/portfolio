@@ -5,6 +5,7 @@ import "./globals.css";
 import { RenderModeProvider } from "./context/RenderModeContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NavBar from "./components/NavBar";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -83,6 +84,7 @@ export default function RootLayout({
         <header>
           <NavBar />
         </header>
+        <ToastContainer />
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
             <RenderModeProvider>{children}</RenderModeProvider>

@@ -24,7 +24,7 @@ import Link from "next/link";
 import { ExternalToolbarControls } from "@/app/components/DataGridTools";
 import { useRenderStore } from "@/app/store/useRenderStore";
 import { useQueryClient } from "@tanstack/react-query";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { CryptoAsset } from "@/app/api/lib/types";
 
@@ -77,6 +77,9 @@ const RenderCSR = () => {
   }, [cryptoData]);
 
   useEffect(() => {
+    // Clear any toast left over from another page so it can't bleed across navigation
+    toast.dismiss();
+
     const cached = queryClient.getQueryCache().find({ queryKey: ["crypto"] });
 
     const wasFromCache =
@@ -91,6 +94,7 @@ const RenderCSR = () => {
       toast(
         "This render was faster because React Query cached the previous response!",
         {
+          toastId: "csr-cache-hit",
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: true,
@@ -130,7 +134,6 @@ const RenderCSR = () => {
       alignItems="center"
       height="100%"
     >
-      <ToastContainer />
       {!cryptoLoading && cryptoData?.data?.length && (
         <Grid2
           size={{ xs: 12, md: 8, lg: 6 }}

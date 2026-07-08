@@ -12,7 +12,6 @@ import {
   faCircleNotch,
 } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
-import { ToastContainer } from "react-toastify";
 import BaseRechartLineGraph from "./recharts/BaseLineChart";
 import FlipCard from "@/app/components/FlipCard";
 import BaseVisxLineGraph from "./visx/BaseLineChart";
@@ -56,7 +55,6 @@ export default function ChartPage({ data }: { data: DocumentClient.ItemList }) {
   return !isLoading && memoizedChartData ? (
     <Fade in={true} timeout={400}>
       <Grid2 container padding="2rem" display="flex" justifyContent="center">
-        <ToastContainer />
         <Grid2
           padding="1rem"
           size={{ xs: 10, md: 12, lg: 10 }}

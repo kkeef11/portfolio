@@ -8,7 +8,7 @@ import { ExternalToolbarControls } from "@/app/components/DataGridTools";
 import Link from "next/link";
 import { faSearch, faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useReducer } from "react";
 
@@ -51,10 +51,14 @@ export default function ClientDataGrid({
   const [state, dispatch] = useReducer(reducer, initialState);
   const apiRef = useGridApiRef();
   useEffect(() => {
+    // Clear any toast left over from another page so it can't bleed across navigation
+    toast.dismiss();
+
     if (wasCached) {
       toast(
         "This render was faster because the we served the page from the cache!",
         {
+          toastId: "ssr-cache-hit",
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: true,
@@ -88,7 +92,6 @@ export default function ClientDataGrid({
 
   return (
     <Box display="flex" flexDirection="column" width="100%">
-      <ToastContainer />
       <Zoom in={true} timeout={400} style={{ height: "fit-content" }}>
         <Box>
           <Box display="flex" width="100%" justifyContent="space-between">
