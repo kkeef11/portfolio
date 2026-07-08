@@ -24,6 +24,7 @@ const MotionBox = motion(Box);
 const pages = [
   { label: "Home", path: "/" },
   { label: "Projects", path: "/projects" },
+  { label: "News", path: "/news" },
 ];
 
 const TransparentTooltip = styled(

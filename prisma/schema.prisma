@@ -4,13 +4,27 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // Transaction pooler (port 6543) — runtime
+  directUrl = env("DIRECT_URL")   // Session pooler / direct (port 5432) — migrations
 }
 
 model Resume {
   id        String   @id @default(uuid())
-  file      Bytes    
+  file      Bytes
   filename  String
   createdAt DateTime @default(now())
+}
+
+model Article {
+  id          String    @id @default(uuid())
+  title       String
+  summary     String    @db.Text
+  url         String    @unique
+  source      String?
+  category    String    @default("industry") // "anthropic" | "industry"
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([createdAt])
 }
