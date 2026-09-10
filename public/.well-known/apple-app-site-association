@@ -1,0 +1,25 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "GWXZQMSVDT.com.kkeef11.financialcopilot"
+        ],
+        "components": [
+          {
+            "/": "/plaid/",
+            "comment": "Financial Copilot Plaid OAuth redirect (exact path)"
+          },
+          {
+            "/": "/plaid",
+            "comment": "Financial Copilot Plaid OAuth redirect (no trailing slash)"
+          },
+          {
+            "/": "/plaid/*",
+            "comment": "Financial Copilot Plaid OAuth redirect (sub-paths)"
+          }
+        ]
+      }
+    ]
+  }
+}
