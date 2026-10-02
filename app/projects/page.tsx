@@ -26,6 +26,13 @@ export default function ProjectPage() {
       description:
         "A comparison of Visx and Recharts charting libraries for data visualization",
     },
+    {
+      id: 3,
+      title: "LocalFlow",
+      path: "/projects/localflow",
+      description:
+        "An interactive demo of my offline macOS dictation app",
+    },
   ];
 
   return (
